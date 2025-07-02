@@ -11,12 +11,14 @@ class DefaultController extends AbstractController
 {
     public function toJsonResponse(
         mixed $data = null,
-        int $statusCode = Response::HTTP_OK
+        int $statusCode = Response::HTTP_OK,
+        string $mensagem = null
     ): JsonResponse
     {
         return $this->json([
             'data' => $data,
-            'status' => $statusCode
+            'status' => $statusCode,
+            'menssage' => $mensagem,
         ],$statusCode);
     }
 
