@@ -4,6 +4,6 @@ namespace App\Entity;
 
 enum  ConteudoTypeEnum: String
 {
-    case textot = 'texto';
+    case texto = 'texto';
     case documento = 'documento';
 }

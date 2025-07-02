@@ -14,14 +14,18 @@ class AbrirCapsulaService
     {
     }
 
-    public function execute(int $id): void
+    public function execute(int $id, string $senha): void
     {
         $capsula = $this->buscarCapsulaPorIdService->buscarPorIdOuFalhar(id: $id);
+
+        if(! password_verify($senha, $capsula->getSenha())){
+            throw new Exception("Senha não corresponde");
+        }
 
         if($capsula->getOpenCapsula() === true){
             throw new Exception('capsula ja aberta');
         }
-        
+
         $capsula->openCapsula();
         $this->capsulaRepository->editar();
     }
