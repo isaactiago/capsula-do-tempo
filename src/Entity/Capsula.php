@@ -111,16 +111,9 @@ class Capsula implements JsonSerializable
         $this->usuario = $usuario;
     }
 
-    public function isOpenCapsula(): ?bool
+    public function getOpenCapsula(): ?bool
     {
         return $this->openCapsula;
-    }
-
-    public function setOpenCapsula(bool $openCapsula): static
-    {
-        $this->openCapsula = $openCapsula;
-
-        return $this;
     }
 
     public function openCapsula(): void

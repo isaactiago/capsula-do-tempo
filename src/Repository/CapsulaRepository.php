@@ -23,4 +23,9 @@ class CapsulaRepository extends ServiceEntityRepository
 
         return $capsula;
     }
+
+    public function editar(): void
+    {
+        $this->getEntityManager()->flush();
+    }
 }
