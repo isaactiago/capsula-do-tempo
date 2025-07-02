@@ -15,4 +15,12 @@ class CapsulaRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Capsula::class);
     }
+
+    public function salvar(Capsula $capsula): Capsula
+    {
+        $this->getEntityManager()->persist($capsula);
+        $this->getEntityManager()->flush();
+
+        return $capsula;
+    }
 }
