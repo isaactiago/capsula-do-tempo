@@ -9,9 +9,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
+use JsonSerializable;
 
 #[ORM\Entity(repositoryClass: CapsulaRepository::class)]
-class Capsula
+class Capsula implements JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -26,6 +27,9 @@ class Capsula
      */
     #[ORM\OneToMany(targetEntity: Conteudo::class, mappedBy: 'capsula')]
     private Collection $conteudos;
+
+    #[ORM\Column]
+    private bool $openCapsula = false;
 
     public function __construct (
         #[ORM\Column]
@@ -102,14 +106,34 @@ class Capsula
         return $this;
     }
 
-    public function removeConteudo(Conteudo $conteudo): static
-    {
-        $this->conteudos->removeElement($conteudo);
-        return $this;
-    }
-
     public function setUsuario(Usuario $usuario): void
     {
         $this->usuario = $usuario;
+    }
+
+    public function isOpenCapsula(): ?bool
+    {
+        return $this->openCapsula;
+    }
+
+    public function setOpenCapsula(bool $openCapsula): static
+    {
+        $this->openCapsula = $openCapsula;
+
+        return $this;
+    }
+
+    public function openCapsula(): void
+    {
+        $this->openCapsula = true;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'titulo' => $this->titulo,
+            'descricao' => $this->descricao,
+            'openData' => $this->openData
+        ];
     }
 }
