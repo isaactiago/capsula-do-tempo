@@ -15,16 +15,16 @@ class Conteudo
     #[ORM\Column]
     private int $id;
 
-    #[ORM\ManyToOne(inversedBy: 'conteudos')]
-    #[ORM\JoinColumn(nullable: false)]
-    private capsula $capsula;
-
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private DateTimeImmutable $criadoEm;
 
     public function __construct (
-        #[ORM\Column(type: 'string', enumType:ConteudoTypeEnum::class)]
-        private string $conteudoType,
+        #[ORM\Column]
+        private array $itens,
+
+        #[ORM\ManyToOne(inversedBy: 'conteudos')]
+        #[ORM\JoinColumn(nullable: false)]
+        private capsula $capsula,
     )
     {
         $this->criadoEm = new DateTimeImmutable();
